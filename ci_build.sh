@@ -134,15 +134,15 @@ curl -sLo zipsigner-3.0.jar https://github.com/Magisk-Modules-Repo/zipsigner/raw
 java -jar zipsigner-3.0.jar UPDATE-AnyKernel2.zip Stratosphere-$BUILD_NUMBER.zip
 BUILD_END=$(date +"%s")
 DIFF=$((BUILD_END - BUILD_START))
-tg_post_build "Stratosphere-$BUILD_NUMBER.zip" "Build took : $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)"
+#tg_post_build "Stratosphere-$BUILD_NUMBER.zip" "Build took : $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)"
 
 
 # Upload Flashable zip to tmp.ninja and uguu.se
-# curl -i -F files[]=@Stratosphere-"$BUILD_NUMBER".zip https://uguu.se/upload.php
-# curl -i -F files[]=@Stratosphere-"$BUILD_NUMBER".zip https://tmp.ninja/upload.php?output=text
+curl -i -F files[]=@Stratosphere-"$BUILD_NUMBER".zip https://uguu.se/upload.php
+curl -i -F files[]=@Stratosphere-"$BUILD_NUMBER".zip https://tmp.ninja/upload.php?output=text
 
 cp Stratosphere-"$BUILD_NUMBER".zip ../Stratosphere-Canaries/
 cd ../Stratosphere-Canaries/
 
 # Upload Flashable Zip to GitHub Releases <3
-# gh release create earlyaccess-$DATE "Stratosphere-""$BUILD_NUMBER"".zip" -F releasenotes.md -p -t "Stratosphere Kernel: Automated Build" || echo "gh-cli encountered an unexpected error"
+gh release create earlyaccess-$DATE "Stratosphere-""$BUILD_NUMBER"".zip" -F releasenotes.md -p -t "Stratosphere Kernel: Automated Build" || echo "gh-cli encountered an unexpected error"
